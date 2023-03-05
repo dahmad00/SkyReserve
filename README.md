@@ -1,7 +1,7 @@
-# Connectify
+<h2>Connectify</h2>
 Web Programming Course Project
 
-# Group Members
-Dawood Ahmad (20F-0111)
-Aeysha Saqib (20F-0360)
-Abu Huraira (20F-0259)
+<h4> Group Members </h4>
+Dawood Ahmad (20F-0111) <br>
+Aeysha Saqib (20F-0360) <br>
+Abu Huraira (20F-0259) <br>
