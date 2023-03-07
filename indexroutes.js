@@ -35,5 +35,19 @@ app.get('/About',(req,res)=>{
 app.get('/Friends',(req,res)=>{
     Friends(req,res);
 })
+app.get('/Posts',(req,res)=>{
+    Posts(req,res);
+})
+app.get('/Threads',(req,res)=>{
+    Threads(req,res);
+})
+
+app.get('/Login',(req,res)=>{
+    Login(req,res);
+})
+app.get('/Registration',(req,res)=>{
+    Registration(req,res);
+})
+
 
 module.exports=app;
