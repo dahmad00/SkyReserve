@@ -4,17 +4,25 @@ var mysql = require('mysql2/promise')
 
 
 const router=require("./indexroutes")
-
-
-const userModel = require('./models/user')
-
-
 app.use('/',router)
 
+//const userModel = require('./models/user')
+const cust_model=require('./models/customer')
+cust_model.customer();
 
-userModel.createUser();
+const airport=require('./models/Airport')
+airport.airport();
+const book=require('./models/Booking')
+book.booking();
+const flight=require('./models/Flight')
+flight.flight();
+const payment=require('./models/Payment')
+payment.payment();
+const seat=require('./models/Seat')
+seat.seat();
 
-var con
+
+//userModel.createUser();
 
 
 // async function queryFunction() {

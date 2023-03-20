@@ -42,12 +42,18 @@ app.get('/Threads',(req,res)=>{
     Threads(req,res);
 })
 
-app.get('/Login',(req,res)=>{
-    Login(req,res);
-})
+
 app.get('/Registration',(req,res)=>{
     Registration(req,res);
 })
 
-
+app.get('/register',(req,res)=>{
+    res.sendFile(__dirname+'/register.html');
+});
+app.get('/login',(req,res)=>{
+    res.sendFile(__dirname+'/login.html');
+});
+app.get('/booking.form',(req,res)=>{
+    res.sendFile(__dirname+'/booking.form.html');
+});
 module.exports=app;
