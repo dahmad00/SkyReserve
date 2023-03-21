@@ -41,4 +41,5 @@ const Seat = sequelize.define("Seat", {
  }).catch((error) => {
     console.error('Unable to create seat table : ', error);
  });
+ return Seat;
 };

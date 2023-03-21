@@ -1,3 +1,5 @@
+
+//const seat=require('./models/Seat')
 exports.booking=function(req,res)
 {
    
@@ -36,4 +38,7 @@ const booking = sequelize.define("booking", {
  }).catch((error) => {
     console.error('Unable to create booking table : ', error);
  });
+
+ return booking;
+
 };

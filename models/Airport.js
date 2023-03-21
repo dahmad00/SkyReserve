@@ -1,3 +1,7 @@
+
+//const flight=require('./models/Flight')
+
+
 exports.airport=function(req,res)
 {
    
@@ -41,4 +45,6 @@ const Airport = sequelize.define("Airport", {
  }).catch((error) => {
     console.error('Unable to create Airport table : ', error);
  });
+
+ return Airport;
 };

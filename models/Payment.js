@@ -42,4 +42,6 @@ const Payment = sequelize.define("Payment", {
  }).catch((error) => {
     console.error('Unable payment to create table : ', error);
  });
+
+ return Payment;
 };

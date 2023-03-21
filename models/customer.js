@@ -1,3 +1,6 @@
+//const booking=require('./models/Booking')
+//const payment=require('./models/Payment')
+
 exports.customer=function(req,res)
 {
    
@@ -48,4 +51,14 @@ const customer = sequelize.define("customer", {
  }).catch((error) => {
     console.error('Unable to create customer table : ', error);
  });
+/*
+ customer.hasMany(booking,{foreignKey:'bookingID',as:'booking'});
+booking.belongsTo(customer,{foreignKey:'bookingID',as:'booking'});
+
+
+
+customer.hasMany(payment,{foreignKey:'paymentID',as:'payment'});
+payment.belongsTo(customer,{foreignKey:'paymentID',as:'payment'});
+*/
+ return customer;
 };

@@ -1,15 +1,25 @@
 const { Router } = require('express')
-const express = require('express')
+const express = require('express');
 const app = express.Router()
 
-const {people,groups}=require("./controllers/Searchcontroller")
+//const {getAllCustomer,getCustomerBookings}=require("./controllers/customerController");
+//const { customer } = require('./models/customer');
+/*
 const {mygroup,creategroup}=require("./controllers/groupcontroller")
 const {Home,Account,About,Friends}=require("./controllers/profilecontroller")
 
 const {Posts,Threads}=require("./controllers/TimelineController")
 const {Login,Registration}=require("./controllers/homecontroller")
+*/
+app.get('/getAllCustomer',customerController.getAllCustomer);
+app.post('/addCustomer',customerController.addCustomer);
+app.get('/delete',customerController.delete);
+
+//app.get('/getCustomerBookings',customer/getCustomerBookings);
 
 
+
+/*
 app.get('/people',(req,res)=>{
     people(req,res);
 })
@@ -56,4 +66,5 @@ app.get('/login',(req,res)=>{
 app.get('/booking.form',(req,res)=>{
     res.sendFile(__dirname+'/booking.form.html');
 });
+*/
 module.exports=app;
