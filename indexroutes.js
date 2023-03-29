@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const express = require('express');
 const app = express.Router()
-
+const cntrol=require('./controllers/customerController')
 //const {getAllCustomer,getCustomerBookings}=require("./controllers/customerController");
 //const { customer } = require('./models/customer');
 /*
@@ -11,9 +11,9 @@ const {Home,Account,About,Friends}=require("./controllers/profilecontroller")
 const {Posts,Threads}=require("./controllers/TimelineController")
 const {Login,Registration}=require("./controllers/homecontroller")
 */
-app.get('/getAllCustomer',customerController.getAllCustomer);
-app.post('/addCustomer',customerController.addCustomer);
-app.get('/delete',customerController.delete);
+app.get('/getAllCustomer',cntrol.getAllCustomer);
+app.post('/addCustomer',cntrol.addCustomer);
+app.get('/delete',cntrol.delete);
 
 //app.get('/getCustomerBookings',customer/getCustomerBookings);
 

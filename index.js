@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 var mysql = require('mysql2/promise')
-
+const conn=require('./models/connection')
 
 const router=require("./indexroutes")
 app.use('/',router)
