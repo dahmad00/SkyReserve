@@ -1,83 +1,75 @@
-const Payment=require('../models/Payment')
-
+const Payment = require('../models/Payment')
+const ErrorHandler = require('../utils/ErrorHandler')
 
 // Create and Save a new Customer
-exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.Method) {
-      res.status(400).send({
-        message: "Content can not be empty!",
-      });
-      return;
-    }
-  
-    // Create a Tutorial
-    const payment = {
-        Method: req.body.Method,
-        Amount: req.body.Amount,
-    };
-  
-    // Save Tutorial in the database
-    Payment.create(payment)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while occupping the Payment.",
-        });
-      });
+exports.create = (req, res, next) => {
+  // Validate request
+  if (!req.body.Method) {
+    error = new ErrorHandler('EmptyContentError', 400)
+    next(error, req, res)
+  }
+
+  // Create a Tutorial
+  const payment = {
+    Method: req.body.Method,
+    Amount: req.body.Amount,
   };
 
-// Retrieve all Customer from the database.
-exports.findAll = (req, res) => {
-  const limit =  req.query.limit ? parseInt(req.query.limit): 6
-  const offset =  req.query.offset ? parseInt(req.query.offset): 0
-
- Payment.findAll({ 
-   limit: limit,
-   offset:offset,
+  // Save Tutorial in the database
+  Payment.create(payment)
+    .then((data) => {
+      res.send(data);
     })
-   .then((data) => {
-     res.send(data);
-   })
-   .catch((err) => {
-     res.status(500).send({
-       message:
-         err.message || "Some error occurred while retrieving all Payment.",
-     });
-   });
+    .catch((err) => {
+      error = new ErrorHandler('ContentCreationError', 500)
+      next(error, req, res)
+    });
+};
+
+// Retrieve all Customer from the database.
+exports.findAll = (req, res, next) => {
+  const limit = req.query.limit ? parseInt(req.query.limit) : 6
+  const offset = req.query.offset ? parseInt(req.query.offset) : 0
+
+  Payment.findAll({
+    limit: limit,
+    offset: offset,
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      error = new ErrorHandler('ContentRetreivalError', 500)
+      next(error, req, res)
+    });
 };
 
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {
+exports.findOne = (req, res, next) => {
   const id = req.params.id;
 
- Payment.findByPk(id)
+  Payment.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
-        res.status(404).send({
-          message: `Cannot find Payment with id=${id}.`,
-        });
+        error = new ErrorHandler('RecordNotFound', 404)
+        next(error, req, res)
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Error in retrieving Payment with id=" + id,
-      });
+      error = new ErrorHandler('ContentRetreivalError', 500)
+      next(error, req, res)
     });
 };
 
 // Update a Tutorial by the id in the request
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
   const id = req.params.id;
 
   Payment.update(req.body, {
-    where: { PaymentID : id },
+    where: { PaymentID: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -85,20 +77,18 @@ exports.update = (req, res) => {
           message: "Payment was updated successfully.",
         });
       } else {
-        res.send({
-          message: `Cannot update Payment with id=${id}. Maybe Payment was not found or req.body is empty!`,
-        });
+        error = new ErrorHandler('ContentUpdationError', 500)
+        next(error, req, res)
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Error updating Booking with id=" + id,
-      });
+      error = new ErrorHandler('ContentUpdationError', 500)
+      next(error, req, res)
     });
 };
 
 // Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
   const id = req.params.id;
 
   Payment.destroy({
@@ -110,21 +100,19 @@ exports.delete = (req, res) => {
           message: "Payment was deleted successfully!",
         });
       } else {
-        res.send({
-          message: `Cannot delete Payment with id=${id}. Maybe Payment was not available!`,
-        });
+        error = new ErrorHandler('EmptyContentError', 400)
+        next(error, req, res)
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Could not delete Payment with id=" + id,
-      });
+      error = new ErrorHandler('ContentCreationError', 500)
+      next(error, req, res)
     });
 };
 
 // Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-    Payment.destroy({
+exports.deleteAll = (req, res, next) => {
+  Payment.destroy({
     where: {},
     truncate: false,
   })
@@ -132,10 +120,8 @@ exports.deleteAll = (req, res) => {
       res.send({ message: `${nums} Payment were deleted successfully!` });
     })
     .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while deleting all Payment.",
-      });
+      error = new ErrorHandler('UnknownDeletionError', 500)
+      next(error, req, res)
     });
 };
 

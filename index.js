@@ -1,6 +1,7 @@
 const express = require('express');
 
 const {sequelize,DataTypes}=require('./connection')
+const errorMiddleWare = require('./middleware/error')
 
 //const cors = require("cors");
 const app = express();
@@ -11,6 +12,7 @@ const bookingRoutes = require('./routes/booking.routes');
 const flightRoutes = require('./routes/flight.routes');
 const airportRoutes = require('./routes/airport.routes');
 const paymentRoutes = require('./routes/payment.routes');
+
 
 
 const customer = require('./models/customer')
@@ -86,11 +88,15 @@ sequelize.sync().then(() => {
     console.log("Failed to sync payment db: " + err.message);
   });
 
+app.use(errorMiddleWare)
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port http://127.0.01:${PORT} .`);
 });
+
+
 
 
 // customer.hasMany(booking,{foreignKey:'BookingID',as:'Booking'});

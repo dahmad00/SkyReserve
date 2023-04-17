@@ -1,61 +1,56 @@
 
-const Customer=require('../models/customer')
+const Customer = require('../models/customer')
+const ErrorHandler = require('../utils/ErrorHandler')
 
 
 // Create and Save a new Customer
-exports.create = (req, res) => {
-    // Validate request
-    if (!req.body.Name) {
-      res.status(400).send({
-        message: "Content can not be empty!",
-      });
-      return;
-    }
-  
-    // Create a Tutorial
-    const customer = {
-       // CustomerID: req.body.CustomerID,
-        Name: req.body.Name,
-        DOB: req.body.DOB, 
-        Gender: req.body.Gender
-    };
-  
-    // Save Tutorial in the database
-    Customer.create(customer)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Customer.",
-        });
-      });
+exports.create = (req, res, next) => {
+  // Validate request
+  if (!req.body.Name) {
+    error = new ErrorHandler('EmptyContentError', 400)
+    next(error, req, res)
+  }
+
+  // Create a Tutorial
+  const customer = {
+    // CustomerID: req.body.CustomerID,
+    Name: req.body.Name,
+    DOB: req.body.DOB,
+    Gender: req.body.Gender
   };
 
-// Retrieve all Customer from the database.
-exports.findAll = (req, res) => {
-  const limit =  req.query.limit ? parseInt(req.query.limit): 6
-  const offset =  req.query.offset ? parseInt(req.query.offset): 0
+  // Save Tutorial in the database
+  Customer.create(customer)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      error = new ErrorHandler('ContentCreationError', 500)
+      next(error, req, res)
+    });
+};
 
- Customer.findAll({ 
-   limit: limit,
-   offset:offset,
-   })
-   .then((data) => {
-     res.send(data);
-   })
-   .catch((err) => {
-     res.status(500).send({
-       message:
-         err.message || "Some error occurred while retrieving tutorials.",
-     });
-   });
+// Retrieve all Customer from the database.
+exports.findAll = (req, res, next) => {
+  const limit = req.query.limit ? parseInt(req.query.limit) : 6
+  const offset = req.query.offset ? parseInt(req.query.offset) : 0
+
+  Customer.findAll({
+    limit: limit,
+    offset: offset,
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      error = new ErrorHandler('ContentRetreivalError', 500)
+      next(error, req, res)
+    });
 };
 
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {
+exports.findOne = (req, res, next) => {
   const id = req.params.id;
 
   Customer.findByPk(id)
@@ -63,24 +58,22 @@ exports.findOne = (req, res) => {
       if (data) {
         res.send(data);
       } else {
-        res.status(404).send({
-          message: `Cannot find Customer with id=${id}.`,
-        });
+        error = new ErrorHandler('RecordNotFound', 404)
+        next(error, req, res)
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving Customer with id=" + id,
-      });
+      error = new ErrorHandler('ContentRetreivalError', 500)
+      next(error, req, res)
     });
 };
 
 // Update a Tutorial by the id in the request
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
   const id = req.params.id;
 
   Customer.update(req.body, {
-    where: { CustomerID : id },
+    where: { CustomerID: id },
   })
     .then((num) => {
       if (num == 1) {
@@ -88,20 +81,18 @@ exports.update = (req, res) => {
           message: "Customer was updated successfully.",
         });
       } else {
-        res.send({
-          message: `Cannot update Customer with id=${id}. Maybe  Customer  was not found or req.body is empty!`,
-        });
+        error = new ErrorHandler('ContentUpdationError', 500)
+        next(error, req, res)
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Error updating Customer with id=" + id,
-      });
+      error = new ErrorHandler('ContentUpdationError', 500)
+      next(error, req, res)
     });
 };
 
 // Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
   const id = req.params.id;
 
   Customer.destroy({
@@ -113,20 +104,18 @@ exports.delete = (req, res) => {
           message: "Customer was deleted successfully!",
         });
       } else {
-        res.send({
-          message: `Cannot delete Customer with id=${id}. Maybe  Customer was not found!`,
-        });
+        error = new ErrorHandler('EmptyContentError',500)
+        next(error, req,res)
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id,
-      });
+      error = new ErrorHandler('RecordNotPresent',404)
+        next(error, req,res)
     });
 };
 
 // Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
+exports.deleteAll = (req, res, next) => {
   Customer.destroy({
     where: {},
     truncate: false,
@@ -135,10 +124,8 @@ exports.deleteAll = (req, res) => {
       res.send({ message: `${nums}  Customer were deleted successfully!` });
     })
     .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all  Customer.",
-      });
+      error = new ErrorHandler('UnknownDeletionError',500)
+      next(error, req,res)
     });
 };
 

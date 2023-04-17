@@ -2,7 +2,7 @@
 const {Sequelize,DataTypes} = require("sequelize");
   
     const sequelize = new Sequelize(
-        'airline reservations',
+        'airlinesystem',
         'root',
         '',
          {
