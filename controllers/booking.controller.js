@@ -96,7 +96,7 @@ exports.delete = (req, res, next) => {
 
 
   Booking.destroy({
-    where: { SeatID: id },
+    where: { BookingID: id },
   })
     .then((num) => {
       if (num == 1) {
