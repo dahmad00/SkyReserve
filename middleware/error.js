@@ -53,7 +53,7 @@ module.exports = (err, req, res, next) => {
     }
 
 
-    res.status(error.statusCode).send(message)
+    //res.status(error.statusCode).send(message)
 
 
 

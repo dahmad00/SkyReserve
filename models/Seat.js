@@ -1,5 +1,8 @@
 
-const {sequelize,DataTypes}=require('../connection')
+const {DataTypes} = require('sequelize')
+
+const sequelize  =require('../connection')
+
 
 const Seat = sequelize.define("Seat", {
     SeatID: {

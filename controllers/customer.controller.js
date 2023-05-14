@@ -1,5 +1,5 @@
 
-const Customer = require('../models/customer')
+const Customer = require('../models/Customer')
 const ErrorHandler = require('../utils/ErrorHandler')
 
 

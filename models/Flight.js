@@ -1,5 +1,7 @@
 
-const {sequelize,DataTypes}=require('../connection')
+const {DataTypes} = require('sequelize')
+const sequelize =require('../connection')
+
 
 const flight = sequelize.define("flight", {
     FlightID: {
@@ -8,7 +10,6 @@ const flight = sequelize.define("flight", {
       autoIncrement: true,
       primaryKey: true
       
-      
     },
     Airplane: {
       type: DataTypes.STRING(64),
@@ -16,11 +17,11 @@ const flight = sequelize.define("flight", {
       isLowercase: true,
       isUppercase: true
     },
-    DepartureTime: {
-      type: DataTypes.TIME,
+    Departure: {
+      type: DataTypes.DATE,
       notNull: true
     },
-    ArrivalTime: {
+    Arrival: {
       type: DataTypes.TIME,
       notNull: true
     }

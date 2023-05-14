@@ -1,6 +1,6 @@
-const { sequelize, DataTypes } = require('../connection')
+const { sequelize, DataTypes, Op } = require('../connection')
 const Flight = require('../models/Flight')
-const Op = sequelize.Op;
+
 const ErrorHandler = require('../utils/ErrorHandler')
 
 // Create and Save a new Flight

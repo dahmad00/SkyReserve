@@ -1,5 +1,10 @@
-const {sequelize,DataTypes}=require('../connection')
+
+const {DataTypes} = require('sequelize')
+const { createPool } = require('mysql2');
+const sequelize  =require('../connection')
 const validator = require("validator");
+const connection = require('../connection')
+
 const customer = sequelize.define("customer", {
     CustomerID: {
       type: DataTypes.INTEGER,
@@ -27,7 +32,7 @@ const customer = sequelize.define("customer", {
     }
  });
 
- sequelize.sync().then(() => {
+ connection.sync().then(() => {
   console.log('Customer table created successfully!');
 }).catch((error) => {
   console.error('Unable to create table : ', error);
