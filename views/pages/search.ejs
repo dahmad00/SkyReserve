@@ -5,22 +5,43 @@
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center">
             <h1 class="display-5 text-white mb-4 animated slideInDown">Search Flights</h1>
+            
+            <div class="ms-3 mb-2 text-start" style="font-size: 20px;">
+                <input class="me-2" style="width:15px; height: 15px;" type="checkbox" id="one-way" name="one-way" value="One-Way" onclick="oneWay()">
+                <label class="text-white "  for="vehicle1"> One Way Trip</label>
+            </div>
             <div class="row position-relative mx-auto">
 
-                <div class="col-lg-3">
-                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="date" placeholder="Your email">
+                <div class="div-form-departure col-lg-2">
+                    <select class="form-control border-0 w-100 py-3 ps-4 pe-5" id="from" type="text" placeholder="Source">
+                        <option value="" disabled selected hidden>Source</option>
+
+                        <% Locations.forEach(function(location) { %>
+                            <option value="<%=location %>"><%= location %> </option>
+                        <%})%>
+
+                        </select>
+                </div>
+                <div class="div-form-departure col-lg-2">
+                    <select class="form-control border-0 w-100 py-3 ps-4 pe-5" id="to" type="text" placeholder="Destination">
+                        <option value="" disabled selected hidden>Destination</option>
+                        <% Locations.forEach(function(location) { %>
+                            <option value="<%=location %>"><%= location %> </option>
+                        <%})%>
+                        </select>
                 </div>
 
-                <div class="col-lg-3">
-                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Source">
+                <div class="div-form-departure col-lg-2">
+                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5 date-picker" id="departure"  type="text" placeholder="Departure Date">
                 </div>
-                <div class="col-lg-3">
-                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Destination">
+
+                <div class="div-form-departure col-lg-2" id="arrival-col">
+                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5 date-picker" id="arrival" type="text" placeholder="Arrival Date">
                 </div>
 
                 <div class="col-lg-1" style="float:left">
-                    <button type="button" class="btn btn-primary py-3 position-absolute top-0 me-7 w-25 py-2" style="
-                    float: left; margin-left: -25px;">
+                    <button type="button" id="search-button" class="btn btn-primary py-3 position-absolute top-0 me-7 w-25 py-2" style="
+                    float: left; margin-left: -25px;" onclick="searchQuery()">
                     Search</button>
                 </div>
                 
@@ -31,5 +52,102 @@
     </div>
 </div>
 <!-- Page Header End -->
+
+
+
+<div class="row search-results w-75" id="search-result">
+    <!-- <div class="row">
+        <h1 style="color:#231818">Departure Flights</h1>
+        <div class="col-6 row" style="padding:0px"></div>
+        <div class="col-6 row">
+            <div class="col-1"></div>
+                <div class="col-5 text-center" style="height:30px; background-color: #D81324; color:white">
+                    Economy
+                </div>
+                <div class="col-5 text-center" style="height:30px; background-color: #207e33; color:white">
+                    Business
+                </div>      
+        </div>
+    </div> -->
+</div>
+
+<button id="selectButton" class="btn btn-primary">
+    Book Selected Flights &nbsp; &#8594;
+</button>
+
+<div class="row search-results w-75" id="search-result-arrival">
+    <!-- <div class="row">
+        <h1 style="color:#231818">Arrival Flights</h1>
+        <div class="col-6 row" style="padding:0px"></div>
+        <div class="col-6 row">
+            <div class="col-1"></div>
+                <div class="col-5 text-center" style="height:30px; background-color: #D81324; color:white">
+                    Economy
+                </div>
+                <div class="col-5 text-center" style="height:30px; background-color: #207e33; color:white">
+                    Business
+                </div>      
+        </div>
+    </div> -->
+</div>
+
+
+<!-- <div class="row search-results w-75">
+    <h1 style="color:#231818">Departure Flights</h1>
+    <div class="row">
+        <div class="col-6 row" style="padding:0px"></div>
+        <div class="col-6 row">
+            <div class="col-1"></div>
+                <div class="col-5 text-center" style="height:30px; background-color: #D81324; color:white">
+                    Economy
+                </div>
+                <div class="col-5 text-center" style="height:30px; background-color: #207e33; color:white">
+                    Business
+                </div>      
+        </div>
+    </div>
+    
+    <div class="row result-box">
+        <div class="col-6 row " style="padding:0px">
+            <div class="col-4 py-3 ps-4">
+                <h2>08:00 PM</h2>
+                <h3>Karachi</h3>
+                <h6>3rd December, 2023</h6>
+            </div>
+            <div class="col-4" style="margin:auto auto">
+                <p class="text-center" style="position: absolute;margin-left: 3.5rem;margin-top: -17px;">24:00</p>
+                <div>
+                    <i class="fas fa-plane me-2"></i>
+                    <img src="img/arrow.png" style="margin-bottom: 4px; width:60%">
+                    <i class="fas fa-plane ms-2"></i>
+                </div>
+            </div>
+            <div class="col-4 py-3">
+                <h2>08:00 PM</h2>
+                <h3>Karachi</h3>
+                <h6>3rd December, 2023</h6>
+            </div>
+        </div>
+    
+        <div class="col-6 row">
+            <div class="col-1"></div>
+            <div class="col-5 text-center" style="height:100%; background-color: #e2ffe2; border-left:1px solid #207e33; border-right: 1px solid #207e33;">
+                <h4 class="text-center mt-3">PKR <br>13000</h4>
+                <button type="button" class="btn btn-success text-center ms-auto">Select</button>
+            </div>
+            <div class="col-5 text-center" style="height:100%; background-color: #fff3d1;; border-right: 1px solid #207e33;">
+                <h4 class="text-center mt-3">PKR <br>33000</h4>
+                <button type="button" class="btn btn-success text-center ms-auto">Select</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<form action="/search/bookFlight" method="get" id="booking-form" style="display: none;">
+    <input id="booking-data" type="text" name="data" value="XX">  
+</form>
+
+<script src="scripts/search.js">
+</script>
 
 <%- include('../partials/footer'); -%>

@@ -1,0 +1,24 @@
+.search-results {
+    margin: 50px 100px 50px 12.5%;
+    /* border: 1px solid grey; */
+}
+.fa-plane {
+    color:#0B2154 !important;
+}
+
+#search-result {
+    /* display: none; */
+}
+
+.result-box {
+    border: 1px solid grey;
+}
+
+#selectButton {
+    display: none;
+    position: fixed;
+    bottom: 40%;
+    right: 200px; 
+    background-color: #146c43;
+    border-color: #146c43;
+}

@@ -7,8 +7,6 @@ const Airport = sequelize.define("Airport", {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
-      
-      
     },
     Name: {
       type: DataTypes.STRING(64),
@@ -18,7 +16,8 @@ const Airport = sequelize.define("Airport", {
     },
     Location: {
       type: DataTypes.STRING,
-      notNull: true
+      notNull: true,
+      unique: true
     }
  });
  sequelize.sync().then(() => {

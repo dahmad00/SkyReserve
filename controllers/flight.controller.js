@@ -5,6 +5,8 @@ const ErrorHandler = require('../utils/ErrorHandler')
 
 // Create and Save a new Flight
 exports.create = (req, res, next) => {
+
+  
   // Validate request
   if (!req.body.Airplane) {
     error = new ErrorHandler('EmptyContentError', 400)
@@ -16,6 +18,7 @@ exports.create = (req, res, next) => {
     Airplane: req.body.Airplane,
     DepartureTime: req.body.DepartureTime,
     ArrivalTime: req.body.ArrivalTime
+
   };
 
   // Save Tutorial in the database
@@ -31,6 +34,9 @@ exports.create = (req, res, next) => {
 
 // Retrieve all Flight from the database.
 exports.findAll = (req, res, next) => {
+  console.log("Request Received")
+  console.log(req.params)
+  console.log("end")
   const limit = req.query.limit ? parseInt(req.query.limit) : 6
   const offset = req.query.offset ? parseInt(req.query.offset) : 0
   Flight.findAll({

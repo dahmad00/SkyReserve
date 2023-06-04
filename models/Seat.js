@@ -22,6 +22,10 @@ const Seat = sequelize.define("Seat", {
     Position: {
       type: DataTypes.STRING,
       notNull: true
+    },
+    Cost: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
  });
  sequelize.sync().then(() => {

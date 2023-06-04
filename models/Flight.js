@@ -22,9 +22,34 @@ const flight = sequelize.define("flight", {
       notNull: true
     },
     Arrival: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
+      notNull: true
+    },
+    Economy_Total: {
+      type:DataTypes.INTEGER,
+      notNull: true
+    },
+    Economy_Avail: {
+      type:DataTypes.INTEGER,
+      notNull: true
+    },
+    Economy_Fare: {
+      type:DataTypes.INTEGER,
+      notNull: true
+    },
+    Business_Total: {
+      type:DataTypes.INTEGER,
+      notNull: true
+    },
+    Business_Avail: {
+      type:DataTypes.INTEGER,
+      notNull: true
+    },
+    Business_Fare: {
+      type:DataTypes.INTEGER,
       notNull: true
     }
+    
  });
  sequelize.sync().then(() => {
     console.log('flight table created successfully!');

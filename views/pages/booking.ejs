@@ -1,0 +1,70 @@
+<%- include('../partials/search-header'); -%>
+
+
+
+    <div style="padding: 2.5rem; margin:10px 200px">
+        <h3 class="my-4">Ticket Booking Form</h3>
+        <div class="row">
+            <div class="row col-6" style="margin:0;padding:0;">
+                <div class="">
+                    <table class="table">
+                        <thead colspan="2"><strong style>Ticket Summary</strong></thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Airplane</td>
+                                <td><%= flight.Airplane %></td>
+                            </tr>
+                            <tr>
+                                <td>Departure</td>
+                                <td><%= flight.Departure %></td>
+                            </tr>
+                            <tr>
+                                <td>Arrival</td>
+                                <td><%= flight.Arrival %></td>
+                            </tr>
+                            <tr>
+                                <td>Seat Type</td>
+                                <td><%= flight.seat_type %></td>
+                            </tr>
+                            <tr>
+                                <td>Ticket Fare</td>
+                                <td><%= flight.fare %></td>
+                            </tr>
+                            <tr>
+                                <td>Booking Date</td>
+                                <td><%= flight.today %></td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md">
+
+                </div>
+            </div>
+
+            <div class="col-6 ps-5">
+                <h5 style="color:#596277">Please fill the following form</h5>
+
+                <form method="post" action="/search/completeBooking">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Name</label>
+                      <input name="name" type="text" class="mb-2 form-control" placeholder="Enter Name">
+
+                      <label for="exampleInputEmail1">CNIC</label>
+                      <input name="cnic" type="text" class="mb-2 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter 13 digit CNIC">
+
+                      <label for="exampleInputEmail1">Date of Birth</label>
+                      <input name="dob" type="date" class="mb-2 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      
+    
+                      <label for="exampleInputEmail1">Email Address</label>
+                      <input name="email" type="email" class="mb-4 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        
+        
+                    <button type="submit" class="mb-5 btn btn-primary">Confirm Booking</button>
+                  </form>
+            </div>
+        </div>
+    </div>

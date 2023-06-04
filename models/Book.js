@@ -7,10 +7,22 @@ const booking = sequelize.define("booking", {
     BookingID: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true
-      
-      
+    },
+    Name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true
+    },
+    Email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true
+    },
+    CNIC: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true
     },
     ExpiryTime: {
       type: DataTypes.TIME,
