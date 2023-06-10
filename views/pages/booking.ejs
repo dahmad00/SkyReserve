@@ -47,20 +47,20 @@
             <div class="col-6 ps-5">
                 <h5 style="color:#596277">Please fill the following form</h5>
 
-                <form method="post" action="/search/completeBooking">
+                <form method="post" action="/search/completeBooking" onsubmit="return validateBookingForm()">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Name</label>
-                      <input name="name" type="text" class="mb-2 form-control" placeholder="Enter Name">
+                      <input id="booking-name" name="name" type="text" class="mb-2 form-control" placeholder="Enter Name">
 
                       <label for="exampleInputEmail1">CNIC</label>
-                      <input name="cnic" type="text" class="mb-2 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter 13 digit CNIC">
+                      <input id="cnic" name="cnic" type="text" class="mb-2 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter 13 digit CNIC">
 
                       <label for="exampleInputEmail1">Date of Birth</label>
-                      <input name="dob" type="date" class="mb-2 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <input id="dob" name="dob" type="date" class="mb-2 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                       
     
                       <label for="exampleInputEmail1">Email Address</label>
-                      <input name="email" type="email" class="mb-4 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <input id="email" name="email" type="email" class="mb-4 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
         
         
                     <button type="submit" class="mb-5 btn btn-primary">Confirm Booking</button>

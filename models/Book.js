@@ -6,23 +6,19 @@ const sequelize  = require('../connection')
 const booking = sequelize.define("booking", {
     BookingID: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     Name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     Email: {
       type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     CNIC: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true
     },
     ExpiryTime: {
       type: DataTypes.TIME,

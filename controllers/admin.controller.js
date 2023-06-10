@@ -1,3 +1,4 @@
+
 const {customer, airport, booking, flight, seat} = require('../models/all_models')
 const sequelize = require('../connection')
 
@@ -7,6 +8,32 @@ exports.index = function(req,res, next) {
 
 exports.addAirport = function(req,res, next) {
     res.render('admin/add_airport')
+}
+
+exports.completeLogin = function(req,res, next) {
+    var admins = [
+        {user: 'admin', password: 'admin'}
+    ]
+    
+    var name = req.query.user 
+    var password = req.query.password
+
+    
+    if (name == admins[0].user && password == admins[0].password) {
+        console.log('A')
+        res.render('admin/index')
+    }
+    else {
+        console.log(name)
+        console.log(password)
+        res.render('admin/login')
+    }
+}
+
+exports.login= function(req,res, next) {
+  
+        res.render('admin/login')
+    
 }
 
 exports.addFlight = function(req,res, next) {

@@ -2,6 +2,7 @@ const {customer, airport, booking, flight, seat} = require('../models/all_models
 const sequelize = require('sequelize')
 const {Op} = require('sequelize')
 const Moment = require('moment') 
+const mailer = require('nodemailer')
 
 exports.search = function(req,res, next) {
 
@@ -22,20 +23,51 @@ exports.search = function(req,res, next) {
 exports.completeBooking = (req,res,next) => {
     console.log(req.body)
     
-    bookingID = Math.random().toString(36).slice(2)
+    var bookingID = Date.now()
     
     booking.create({
         BookingID: bookingID,
         Name: req.body.name,
         Email: req.body.email,
-        CNIC: req.body.cnic
+        CNIC: req.body.cnic,
+        CustomerID: 1,
+        SeatID: 1
     }).then(
         ()=> {
+
+            var transporter = mailer.createTransport(
+                {
+                    service: 'gmail',
+                    auth: {
+                        user:'dawoodahmad1052000@gmail.com',
+                        pass:'olelxbjnplzegetl'
+                    }
+                }
+            )
+
+            var options = {
+                from: 'dawoodahmad1052000@gmail.com',
+                to: req.body.email,
+                subject: 'Booking',
+                text: 'your booking details:\nName: ' + req.body.name + "\nCNIC:" + req.body.cnic + "\nBookingID: " + Date.now()
+            }
+
+            transporter.sendMail(options, (error, info) => {
+                if (error) {
+                  console.log(error);
+                  console.log();
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }})
+
+
             res.render('pages/success', {message: 'Booking Succesful. Your booking ID is ' + bookingID})
         }).catch(
             (error) => {
             console.log(error)
         })
+
+    
 }
 
 exports.bookFlight = (req,res,next) => {
@@ -272,8 +304,9 @@ async function getOneWayFlights(from, to, departure) {
         location_to = airport_to.Location
         flight_list[i].dataValues.location_to = location_to
         flight_list[i].dataValues.location_from = location_from
-        flight_list[i].dataValues.date_departure = Moment(flight_list[i].departure).format('MMMM Do, YYYY')
-        flight_list[i].dataValues.date_arrival = Moment(flight_list[i].arrival).format('MMMM Do, YYYY')
+        
+        flight_list[i].dataValues.date_departure = Moment(flight_list[i].Departure).format('MMMM Do, YYYY')
+        flight_list[i].dataValues.date_arrival = Moment(flight_list[i].Arrival).format('MMMM Do, YYYY')
     }
 
     console.log(flight_list)
